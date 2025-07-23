@@ -1,11 +1,11 @@
-import { useDispatch } from 'react-redux'
-import { useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { login } from '~/store/auth'
+import { useDispatch } from 'react-redux';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { login } from '~/store/auth';
 
 export const useLogin = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = useCallback(
     async ({ email, password }) => {
@@ -13,15 +13,15 @@ export const useLogin = () => {
         login({
           email,
           password,
-        }),
-      ).unwrap()
+        })
+      ).unwrap();
 
-      navigate('/')
+      navigate('/');
     },
-    [useDispatch],
-  )
+    [useDispatch]
+  );
 
   return {
     login: handleLogin,
-  }
-}
+  };
+};
