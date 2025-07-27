@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import './index.css';
 import { useSignup } from '~/hooks/useSignup';
 import { useId } from '~/hooks/useId';
+import { CommonButton } from '~/components/common/CommonButton';
 
 const SignUp = () => {
   const auth = useSelector((state) => state.auth.token !== null);
@@ -93,9 +94,9 @@ const SignUp = () => {
             Login
           </Link>
           <div className="signup__form_actions_spacer"></div>
-          <button type="submit" className="app_button" disabled={isSubmitting}>
+          <CommonButton type="submit" disabled={isSubmitting}>
             Register
-          </button>
+          </CommonButton>
         </div>
       </form>
     </main>

@@ -6,6 +6,7 @@ import './index.css';
 import { setCurrentList } from '~/store/list';
 import { fetchTasks, updateTask, deleteTask } from '~/store/task';
 import { useId } from '~/hooks/useId';
+import { CommonButton } from '~/components/common/CommonButton';
 
 const EditTask = () => {
   const id = useId();
@@ -127,17 +128,17 @@ const EditTask = () => {
             Cancel
           </Link>
           <div className="edit_list__form_actions_spacer"></div>
-          <button
+          <CommonButton
             type="button"
-            className="app_button edit_list__form_actions_delete"
+            className=" edit_list__form_actions_delete"
             disabled={isSubmitting}
             onClick={handleDelete}
           >
             Delete
-          </button>
-          <button type="submit" className="app_button" disabled={isSubmitting}>
+          </CommonButton>
+          <CommonButton type="submit" disabled={isSubmitting}>
             Update
-          </button>
+          </CommonButton>
         </div>
       </form>
     </main>

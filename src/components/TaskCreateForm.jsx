@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import './TaskCreateForm.css';
 import { CheckIcon } from '~/icons/CheckIcon';
 import { createTask } from '~/store/task';
+import { CommonButton } from './common/CommonButton';
+import { ToggleDoneButton } from './common/ToggleDoneButton';
 
 export const TaskCreateForm = () => {
   const dispatch = useDispatch();
@@ -93,27 +95,16 @@ export const TaskCreateForm = () => {
       data-state={formState}
     >
       <div className="task_create_form__title_container">
-        <button
-          type="button"
+        <ToggleDoneButton
+          done={done}
           onClick={handleToggle}
-          className="task_create_form__mark_button"
           onFocus={handleFocus}
           onBlur={handleBlur}
-        >
-          {done ? (
-            <div
-              className="task_create_form__mark____complete"
-              aria-label="Completed"
-            >
-              <CheckIcon className="task_create_form__mark____complete_check" />
-            </div>
-          ) : (
-            <div
-              className="task_create_form__mark____incomplete"
-              aria-label="Incomplete"
-            ></div>
-          )}
-        </button>
+          wrapperClass="task_create_form__mark_button"
+          completeClass="task_create_form__mark____complete"
+          checkClass="task_create_form__mark____complete_check"
+          incompleteClass="task_create_form__mark____incomplete"
+        />
         <input
           type="text"
           className="task_create_form__title"
@@ -138,25 +129,23 @@ export const TaskCreateForm = () => {
             disabled={formState === 'submitting'}
           />
           <div className="task_create_form__actions">
-            <button
+            <CommonButton
               type="button"
-              className="app_button"
               data-variant="secondary"
               onBlur={handleBlur}
               onClick={handleDiscard}
               disabled={(!title && !detail) || formState === 'submitting'}
             >
               Discard
-            </button>
+            </CommonButton>
             <div className="task_create_form__spacer"></div>
-            <button
+            <CommonButton
               type="submit"
-              className="app_button"
               onBlur={handleBlur}
               disabled={!title || !detail || formState === 'submitting'}
             >
               Add
-            </button>
+            </CommonButton>
           </div>
         </div>
       )}
