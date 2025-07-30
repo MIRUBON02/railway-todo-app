@@ -5,6 +5,7 @@ import './index.css';
 import { useSignup } from '~/hooks/useSignup';
 import { useId } from '~/hooks/useId';
 import { CommonButton } from '~/components/common/CommonButton';
+import { FormField } from '~/components/common/FormField';
 
 const SignUp = () => {
   const auth = useSelector((state) => state.auth.token !== null);
@@ -45,10 +46,12 @@ const SignUp = () => {
       <h2 className="signup__title">Register</h2>
       <p className="signup__error">{errorMessage}</p>
       <form className="signup__form" onSubmit={onSubmit}>
-        <fieldset className="signup__form_field">
-          <label htmlFor={`${id}-email`} className="signup__form_label">
-            E-mail Address
-          </label>
+        <FormField
+          className="signup__form_field"
+          id={`${id}-email`}
+          labelClass="signup__form_label"
+          label="E-mail Address"
+        >
           <input
             id={`${id}-email`}
             autoComplete="email"
@@ -56,15 +59,14 @@ const SignUp = () => {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
-        </fieldset>
-        <fieldset className="signup__form_field">
-          <label
-            htmlFor={`${id}-name`}
-            autoComplete="name"
-            className="signup__form_label"
-          >
-            Name
-          </label>
+        </FormField>
+        <FormField
+          className="signup__form_field"
+          id={`${id}-name`}
+          autoComplete="name"
+          labelClass="signup__form_label"
+          label="Name"
+        >
           <input
             id={`${id}-name`}
             type="text"
@@ -72,15 +74,14 @@ const SignUp = () => {
             value={name}
             onChange={(event) => setName(event.target.value)}
           />
-        </fieldset>
-        <fieldset className="signup__form_field">
-          <label
-            htmlFor={`${id}-password`}
-            autoComplete="new-password"
-            className="signup__form_label"
-          >
-            Password
-          </label>
+        </FormField>
+        <FormField
+          className="signup__form_field"
+          id={`${id}-password`}
+          autoComplete="new-password"
+          labelClass="signup__form_label"
+          label="Password"
+        >
           <input
             id={`${id}-password`}
             type="password"
@@ -88,7 +89,7 @@ const SignUp = () => {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-        </fieldset>
+        </FormField>
         <div className="signup__form_actions">
           <Link className="app_button" data-variant="secondary" to="/signin">
             Login

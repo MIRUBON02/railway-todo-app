@@ -7,6 +7,7 @@ import { setCurrentList } from '~/store/list';
 import { fetchTasks, updateTask, deleteTask } from '~/store/task';
 import { useId } from '~/hooks/useId';
 import { CommonButton } from '~/components/common/CommonButton';
+import { FormField } from '~/components/common/FormField';
 
 const EditTask = () => {
   const id = useId();
@@ -86,10 +87,12 @@ const EditTask = () => {
       <h2 className="edit_list__title">Edit List</h2>
       <p className="edit_list__error">{errorMessage}</p>
       <form className="edit_list__form" onSubmit={onSubmit}>
-        <fieldset className="edit_list__form_field">
-          <label htmlFor={`${id}-title`} className="edit_list__form_label">
-            Title
-          </label>
+        <FormField
+          className="edit_list__form_field"
+          id={`${id}-title`}
+          labelClass="edit_list__form_label"
+          label="Title"
+        >
           <input
             id={`${id}-title`}
             className="app_input"
@@ -97,11 +100,13 @@ const EditTask = () => {
             value={title}
             onChange={(event) => setTitle(event.target.value)}
           />
-        </fieldset>
-        <fieldset className="edit_list__form_field">
-          <label htmlFor={`${id}-detail`} className="edit_list__form_label">
-            Description
-          </label>
+        </FormField>
+        <FormField
+          className="edit_list__form_field"
+          id={`${id}-detail`}
+          labelClass="edit_list__form_label"
+          label="Description"
+        >
           <textarea
             id={`${id}-detail`}
             className="app_input"
@@ -109,11 +114,13 @@ const EditTask = () => {
             value={detail}
             onChange={(event) => setDetail(event.target.value)}
           />
-        </fieldset>
-        <fieldset className="edit_list__form_field">
-          <label htmlFor={`${id}-done`} className="edit_list__form_label">
-            Is Done
-          </label>
+        </FormField>
+        <FormField
+          className="edit_list__form_field"
+          id={`${id}-done`}
+          labelClass="edit_list__form_label"
+          label="Is Done"
+        >
           <div>
             <input
               id={`${id}-done`}
@@ -122,7 +129,7 @@ const EditTask = () => {
               onChange={(event) => setDone(event.target.checked)}
             />
           </div>
-        </fieldset>
+        </FormField>
         <div className="edit_list__form_actions">
           <Link to="/" data-variant="secondary" className="app_button">
             Cancel

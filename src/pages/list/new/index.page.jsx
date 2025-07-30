@@ -6,6 +6,7 @@ import './index.css';
 import { createList, setCurrentList } from '~/store/list/index';
 import { useId } from '~/hooks/useId';
 import { CommonButton } from '~/components/common/CommonButton';
+import { FormField } from '~/components/common/FormField';
 
 const NewList = () => {
   const id = useId();
@@ -45,10 +46,12 @@ const NewList = () => {
       <h2 className="new_list__title">New List</h2>
       <p className="new_list__error">{errorMessage}</p>
       <form className="new_list__form" onSubmit={onSubmit}>
-        <fieldset className="new_list__form_field">
-          <label htmlFor={`${id}-title`} className="new_list__form_label">
-            Name
-          </label>
+        <FormField
+          className="new_list__form_field"
+          id={`${id}-title`}
+          labelClass="new_list__form_label"
+          label="Name"
+        >
           <input
             id={`${id}-title`}
             className="app_input"
@@ -56,7 +59,7 @@ const NewList = () => {
             value={title}
             onChange={(event) => setTitle(event.target.value)}
           />
-        </fieldset>
+        </FormField>
         <div className="new_list__form_actions">
           <Link to="/" data-variant="secondary" className="app_button">
             Cancel

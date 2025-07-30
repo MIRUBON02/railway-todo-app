@@ -5,6 +5,7 @@ import { useLogin } from '~/hooks/useLogin';
 import { useId } from '~/hooks/useId';
 import './index.css';
 import { CommonButton } from '~/components/common/CommonButton';
+import { FormField } from '~/components/common/FormField';
 
 const SignIn = () => {
   const auth = useSelector((state) => state.auth.token !== null);
@@ -43,10 +44,12 @@ const SignIn = () => {
       <h2 className="signin__title">Login</h2>
       <p className="signin__error">{errorMessage}</p>
       <form className="signin__form" onSubmit={onSubmit}>
-        <fieldset className="signin__form_field">
-          <label htmlFor={`${id}-email`} className="signin__form_label">
-            E-mail Address
-          </label>
+        <FormField
+          className="signin__form_field"
+          id={`${id}-email`}
+          ladelClass="signin__form_label"
+          label="E-mail Address"
+        >
           <input
             id={`${id}-email`}
             type="email"
@@ -55,11 +58,13 @@ const SignIn = () => {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
-        </fieldset>
-        <fieldset className="signin__form_field">
-          <label htmlFor={`${id}-password`} className="signin__form_label">
-            Password
-          </label>
+        </FormField>
+        <FormField
+          className="signin__form_field"
+          id={`${id}-password`}
+          labelClass="signin__form_label"
+          label="Password"
+        >
           <input
             id={`${id}-password`}
             type="password"
@@ -68,7 +73,7 @@ const SignIn = () => {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-        </fieldset>
+        </FormField>
         <div className="signin__form_actions">
           <Link className="app_button" data-variant="secondary" to="/signup">
             Register

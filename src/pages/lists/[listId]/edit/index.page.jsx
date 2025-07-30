@@ -6,6 +6,7 @@ import './index.css';
 import { fetchLists, updateList, deleteList } from '~/store/list';
 import { useId } from '~/hooks/useId';
 import { CommonButton } from '~/components/common/CommonButton';
+import { FormField } from '~/components/common/FormField';
 
 const EditList = () => {
   const id = useId();
@@ -80,10 +81,12 @@ const EditList = () => {
       <h2 className="edit_list__title">Edit List</h2>
       <p className="edit_list__error">{errorMessage}</p>
       <form className="edit_list__form" onSubmit={onSubmit}>
-        <fieldset className="edit_list__form_field">
-          <label htmlFor={`${id}-title`} className="edit_list__form_label">
-            Name
-          </label>
+        <FormField
+          className="edit_list__form_field"
+          id={`${id}-title`}
+          labelClass="edit_list__form_label"
+          label="Name"
+        >
           <input
             id={`${id}-title`}
             className="app_input"
@@ -91,7 +94,7 @@ const EditList = () => {
             value={title}
             onChange={(event) => setTitle(event.target.value)}
           />
-        </fieldset>
+        </FormField>
         <div className="edit_list__form_actions">
           <Link to="/" data-variant="secondary" className="app_button">
             Cancel
