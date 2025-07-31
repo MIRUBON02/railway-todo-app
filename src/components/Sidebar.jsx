@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLogout } from '~/hooks/useLogout';
 import { useEffect } from 'react';
 import { fetchLists } from '~/store/list/index';
-import { CommonButton } from './common/CommonButton';
 import { LogoutButton } from './common/LogoutButton';
 
 export const Sidebar = () => {

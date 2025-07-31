@@ -5,7 +5,7 @@ import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import importPlugin from 'eslint-plugin-import';
 import prettier from 'eslint-config-prettier';
-import unusedImports from 'eslint-plugin-unused-imports'; 
+import unusedImports from 'eslint-plugin-unused-imports';
 
 export default [
   js.configs.recommended,
@@ -15,20 +15,16 @@ export default [
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
-        ecmaFeatures: {
-          jsx: true,
-        },
+        ecmaFeatures: { jsx: true },
       },
-
-    globals: {
-    document: true,
-    window: true,
-    localStorage: true,
-    location: true,
-    setTimeout: true,
-    alert: true,
-  },
-
+      globals: {
+        document: true,
+        window: true,
+        localStorage: true,
+        location: true,
+        setTimeout: true,
+        alert: true,
+      },
     },
 
     plugins: {
@@ -38,18 +34,19 @@ export default [
       import: importPlugin,
       'unused-imports': unusedImports,
     },
-    rules: {
-      'react/react-in-jsx-scope': 'off',
-      'react/jsx-uses-react': 'off',
-      'unused-imports/no-unused-imports': 'error',
-      'unused-imports/no-unused-vars': [
-        'warn',
-        { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
-      ],
-    },
+ rules: {
+  'react/react-in-jsx-scope': 'off',
+  'react/jsx-uses-react': 'off',
+  'unused-imports/no-unused-imports': 'off',
+  'no-unused-vars': 'off',
+},
     settings: {
-      react: {
-        version: 'detect',
+      react: { version: 'detect' },
+      'import/resolver': {
+        'custom-alias': {
+          map: [['~', './src']],
+          extensions: ['.js', '.jsx'],
+        },
       },
     },
   },

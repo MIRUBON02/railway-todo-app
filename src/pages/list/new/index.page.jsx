@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { BackButton } from '~/components/BackButton';
 import './index.css';
@@ -7,6 +7,8 @@ import { createList, setCurrentList } from '~/store/list/index';
 import { useId } from '~/hooks/useId';
 import { CommonButton } from '~/components/common/CommonButton';
 import { FormField } from '~/components/common/FormField';
+import { Link } from 'react-router-dom';
+
 
 const NewList = () => {
   const id = useId();
@@ -64,7 +66,7 @@ const NewList = () => {
           <Link to="/" data-variant="secondary" className="app_button">
             Cancel
           </Link>
-          <div className="new_list__form_actions_spacer"></div>
+          <div className="common__form_actions_spacer"></div>
           <CommonButton type="submit" disabled={isSubmitting}>
             Create
           </CommonButton>
