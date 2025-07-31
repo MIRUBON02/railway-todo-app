@@ -1,3 +1,5 @@
+import './CommonButton.css';
+
 export const CommonButton = ({
   children,
   onClick,
@@ -10,7 +12,7 @@ export const CommonButton = ({
   return (
     <button
       type={type}
-      className={`app_button${className}`}
+      className={`common_button${className}`}
       onClick={onClick}
       onBlur={onBlur}
       disabled={disabled}

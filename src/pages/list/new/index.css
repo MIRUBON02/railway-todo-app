@@ -34,10 +34,3 @@
   color: var(--slate-600);
   font-weight: 500;
 }
-
-.new_list__form_actions {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  align-items: center;
-}

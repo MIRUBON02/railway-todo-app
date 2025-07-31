@@ -89,17 +89,17 @@ const EditList = () => {
         >
           <input
             id={`${id}-title`}
-            className="app_input"
+            className="form_field_input"
             placeholder="Family"
             value={title}
             onChange={(event) => setTitle(event.target.value)}
           />
         </FormField>
-        <div className="edit_list__form_actions">
-          <Link to="/" data-variant="secondary" className="app_button">
+        <div className="common__form_actions">
+          <Link to="/" data-variant="secondary" className="common_button">
             Cancel
           </Link>
-          <div className="edit_list__form_actions_spacer"></div>
+          <div className="common__form_actions_spacer"></div>
           <CommonButton
             type="button"
             className=" edit_list__form_actions_delete"

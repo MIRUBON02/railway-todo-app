@@ -34,14 +34,3 @@
   color: var(--slate-600);
   font-weight: 500;
 }
-
-.signin__form_actions {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  align-items: center;
-}
-
-.signin__form_actions_spacer {
-  flex: 1;
-}

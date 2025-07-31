@@ -44,7 +44,7 @@ const ListIndex = () => {
           </span>
         )}
         <div className="tasks_list__title_spacer"></div>
-        <Link to={`/lists/${listId}/edit`} className="app_button">
+        <Link to={`/lists/${listId}/edit`} className="common_button">
           Edit...
         </Link>
       </div>

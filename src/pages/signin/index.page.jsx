@@ -54,7 +54,7 @@ const SignIn = () => {
             id={`${id}-email`}
             type="email"
             autoComplete="email"
-            className="app_input"
+            className="form_field_input"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
@@ -69,16 +69,16 @@ const SignIn = () => {
             id={`${id}-password`}
             type="password"
             autoComplete="current-password"
-            className="app_input"
+            className="form_field_input"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
         </FormField>
-        <div className="signin__form_actions">
-          <Link className="app_button" data-variant="secondary" to="/signup">
+        <div className="common__form_actions">
+          <Link className="common_button" data-variant="secondary" to="/signup">
             Register
           </Link>
-          <div className="signin__form_actions_spacer"></div>
+          <div className="common__form_actions_spacer"></div>
           <CommonButton type="submit" disabled={isSubmitting}>
             Login
           </CommonButton>

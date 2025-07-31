@@ -56,14 +56,14 @@ const NewList = () => {
         >
           <input
             id={`${id}-title`}
-            className="app_input"
+            className="form_field_input"
             placeholder="Family"
             value={title}
             onChange={(event) => setTitle(event.target.value)}
           />
         </FormField>
-        <div className="new_list__form_actions">
-          <Link to="/" data-variant="secondary" className="app_button">
+        <div className="common__form_actions">
+          <Link to="/" data-variant="secondary" className="common_button">
             Cancel
           </Link>
           <div className="common__form_actions_spacer"></div>
