@@ -1,7 +1,6 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronIcon } from '~/icons/ChevronIcon';
 import './BackButton.css';
+
 
 export const BackButton = () => {
   const navigate = useNavigate();
@@ -16,3 +15,4 @@ export const BackButton = () => {
     </button>
   );
 };
+
