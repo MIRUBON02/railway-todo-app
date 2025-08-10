@@ -1,26 +1,26 @@
 import { useState, useCallback } from 'react';
-import { Link, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { PencilIcon } from '~/icons/PencilIcon';
-import { CheckIcon } from '~/icons/CheckIcon';
 import { updateTask } from '~/store/task';
 import './TaskItem.css';
 import { ToggleDoneButton } from './common/ToggleDoneButton';
+import { calcRemaining, formatLimit } from '~/utils/FormatDate';
+import { Modal } from './Modal/Modal';
+import EditTask from '~/pages/lists/[listId]/tasks/[taskId]/index.page';
 
-export const TaskItem = ({ task }) => {
+export const TaskItem = ({ task, listId }) => {
   const dispatch = useDispatch();
-
-  const { listId } = useParams();
-  const { id, title, detail, done } = task;
+  const { id, title, detail, done, limit } = task;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleToggle = useCallback(() => {
     setIsSubmitting(true);
     void dispatch(updateTask({ id, done: !done })).finally(() => {
       setIsSubmitting(false);
     });
-  }, [id, done]);
+  }, [id, done, dispatch]);
 
   return (
     <div className="task_item">
@@ -38,14 +38,31 @@ export const TaskItem = ({ task }) => {
           {title}
         </div>
         <div aria-hidden className="task_item__title_spacer"></div>
-        <Link
-          to={`/lists/${listId}/tasks/${id}`}
-          className="task_item__title_action"
+        <button
+          type="button"
+          className="task_item__title__action"
+          onClick={() => setIsModalOpen(true)}
         >
           <PencilIcon aria-label="Edit" />
-        </Link>
+        </button>
       </div>
       <div className="task_item__detail">{detail}</div>
+      {limit && (
+        <div
+          className={`task_item__limit ${
+            calcRemaining(limit) === '期限切れ' ? 'expired' : ''
+          }`}
+        >
+          期限: {formatLimit(limit)} （{calcRemaining(limit)}）
+        </div>
+      )}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <EditTask
+          taskId={id}
+          listId={listId ?? task.listId}
+          onClose={() => setIsModalOpen(false)}
+        />
+      </Modal>
     </div>
   );
 };

@@ -12,7 +12,7 @@ export const CommonButton = ({
   return (
     <button
       type={type}
-      className={`common_button${className}`}
+      className={`common_button ${className}`}
       onClick={onClick}
       onBlur={onBlur}
       disabled={disabled}

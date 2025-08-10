@@ -2,11 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import './BackButton.css';
 import { CheckIcon } from '~/icons/CheckIcon';
 
-
-export const BackButton = () => {
+export const BackButton = ({ to = -1, onClick }) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(-1);
+    if (onClick) {
+      onClick();
+    } else {
+      navigate(to);
+    }
   };
 
   return (
@@ -16,4 +19,3 @@ export const BackButton = () => {
     </button>
   );
 };
-

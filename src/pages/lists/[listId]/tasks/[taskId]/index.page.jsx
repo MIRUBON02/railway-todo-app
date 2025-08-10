@@ -8,17 +8,17 @@ import { fetchTasks, updateTask, deleteTask } from '~/store/task';
 import { useId } from '~/hooks/useId';
 import { CommonButton } from '~/components/common/CommonButton';
 import { FormField } from '~/components/common/FormField';
+import { toUTCString } from '~/utils/FormatDate';
+import { LimitInput } from '~/components/common/LimitInput';
 
-const EditTask = () => {
+const EditTask = ({ listId, taskId, onClose }) => {
   const id = useId();
-
-  const { listId, taskId } = useParams();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState('');
   const [detail, setDetail] = useState('');
   const [done, setDone] = useState(false);
+  const [limit, setLimit] = useState('');
 
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,6 +32,7 @@ const EditTask = () => {
       setTitle(task.title);
       setDetail(task.detail);
       setDone(task.done);
+      setLimit(task.Limit || '');
     }
   }, [task]);
 
@@ -43,13 +44,16 @@ const EditTask = () => {
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
-
       setIsSubmitting(true);
 
-      void dispatch(updateTask({ id: taskId, title, detail, done }))
+      const limitUTC = toUTCString(limit);
+
+      void dispatch(
+        updateTask({ id: taskId, title, detail, done, limit: limitUTC })
+      )
         .unwrap()
         .then(() => {
-          navigate(`/lists/${listId}`);
+          onClose();
         })
         .catch((err) => {
           setErrorMessage(err.message);
@@ -58,7 +62,7 @@ const EditTask = () => {
           setIsSubmitting(false);
         });
     },
-    [title, taskId, listId, detail, done]
+    [title, taskId, listId, detail, done, limit]
   );
 
   const handleDelete = useCallback(() => {
@@ -71,7 +75,7 @@ const EditTask = () => {
     void dispatch(deleteTask({ id: taskId }))
       .unwrap()
       .then(() => {
-        navigate(`/`);
+        onClose();
       })
       .catch((err) => {
         setErrorMessage(err.message);
@@ -82,9 +86,7 @@ const EditTask = () => {
   }, [taskId]);
 
   return (
-    <main className="edit_list">
-      <BackButton />
-      <h2 className="edit_list__title">Edit List</h2>
+    <div className="edit_list">
       <p className="edit_list__error">{errorMessage}</p>
       <form className="edit_list__form" onSubmit={onSubmit}>
         <FormField
@@ -117,6 +119,18 @@ const EditTask = () => {
         </FormField>
         <FormField
           className="edit_list__form_field"
+          labelClass="edit_list__form_label"
+          label="Deadline"
+        >
+          <LimitInput
+            limit={limit}
+            setLimit={setLimit}
+            disabled={isSubmitting}
+          />
+        </FormField>
+
+        <FormField
+          className="edit_list__form_field"
           id={`${id}-done`}
           labelClass="edit_list__form_label"
           label="Is Done"
@@ -131,9 +145,14 @@ const EditTask = () => {
           </div>
         </FormField>
         <div className="common__form_actions">
-          <Link to="/" data-variant="secondary" className="common_button">
+          <CommonButton
+            type="button"
+            data-variant="secondary"
+            className="common_button"
+            onClick={onClose}
+          >
             Cancel
-          </Link>
+          </CommonButton>
           <div className="common__form_actions_spacer"></div>
           <CommonButton
             type="button"
@@ -148,7 +167,7 @@ const EditTask = () => {
           </CommonButton>
         </div>
       </form>
-    </main>
+    </div>
   );
 };
 

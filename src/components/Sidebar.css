@@ -1,3 +1,5 @@
+/* ================= PC（768px以上）だけで適用 ================= */
+@media (min-width: 768px) {
 .sidebar {
   position: fixed;
   display: flex;
@@ -10,8 +12,11 @@
   border-right: 1px solid var(--slate-200);
   padding: 2.5rem 1.5rem;
   overflow-y: auto;
+ }
 }
 
+ /* 以降の見た目系はPC/スマホ共通で使ってOKなら
+     このPCブロックの外に出しても大丈夫。今はそのままでも動きます */
 .sidebar__title {
   font-weight: 700;
   font-size: 1.5rem;
@@ -126,3 +131,19 @@
 .sidebar__login {
   margin-top: 1.5rem;
 }
+
+/* ================= スマホ（767px以下）で“固定”を解除 ================= */
+/* ← このブロックをファイルの一番最後に置く！ */
+@media (max-width: 767px) {
+  .sidebar{
+    position: static !important;
+     left: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    border-right: 0;
+    padding: 12px;               /* ちょい軽めに */
+    background: #fff;
+    overflow: visible;           /* ドロワー内で自然に伸びる */
+  }
+  }

@@ -9,7 +9,6 @@ import { CommonButton } from '~/components/common/CommonButton';
 import { FormField } from '~/components/common/FormField';
 import { Link } from 'react-router-dom';
 
-
 const NewList = () => {
   const id = useId();
   const navigate = useNavigate();
@@ -46,6 +45,9 @@ const NewList = () => {
     <main className="new_list">
       <BackButton />
       <h2 className="new_list__title">New List</h2>
+      <p className="new_list__explanation">
+        期限を設定するボタンはリスト名入力後に表示されます。
+      </p>
       <p className="new_list__error">{errorMessage}</p>
       <form className="new_list__form" onSubmit={onSubmit}>
         <FormField

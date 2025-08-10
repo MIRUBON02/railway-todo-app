@@ -74,3 +74,14 @@
   font-size: 1rem;
   color: var(--slate-500);
 }
+
+.task_item__limit {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.task_item__limit.expired {
+  color: red;
+  font-weight: bold;
+}

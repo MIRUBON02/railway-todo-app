@@ -5,6 +5,8 @@ import { CheckIcon } from '~/icons/CheckIcon';
 import { createTask } from '~/store/task';
 import { CommonButton } from './common/CommonButton';
 import { ToggleDoneButton } from './common/ToggleDoneButton';
+import { toUTCString } from '~/utils/FormatDate';
+import { LimitInput } from './common/LimitInput';
 
 export const TaskCreateForm = () => {
   const dispatch = useDispatch();
@@ -17,6 +19,7 @@ export const TaskCreateForm = () => {
   const [title, setTitle] = useState('');
   const [detail, setDetail] = useState('');
   const [done, setDone] = useState(false);
+  const [limit, setLimit] = useState('');
 
   const handleToggle = useCallback(() => {
     setDone((prev) => !prev);
@@ -46,6 +49,7 @@ export const TaskCreateForm = () => {
   const handleDiscard = useCallback(() => {
     setTitle('');
     setDetail('');
+    setLimit('');
     setFormState('initial');
     setDone(false);
   }, []);
@@ -55,6 +59,8 @@ export const TaskCreateForm = () => {
       event.preventDefault();
 
       setFormState('submitting');
+
+      const limitUTC = toUTCString(limit);
 
       void dispatch(createTask({ title, detail, done }))
         .unwrap()
@@ -66,7 +72,7 @@ export const TaskCreateForm = () => {
           setFormState('focused');
         });
     },
-    [title, detail, done]
+    [title, detail, done,limit]
   );
 
   useEffect(() => {
@@ -128,6 +134,11 @@ export const TaskCreateForm = () => {
             onBlur={handleBlur}
             disabled={formState === 'submitting'}
           />
+          <LimitInput
+            limit={limit}
+            setLimit={setLimit}
+            disabled={formState === 'submitting'}
+            />
           <div className="task_create_form__actions">
             <CommonButton
               type="button"

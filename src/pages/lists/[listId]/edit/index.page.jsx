@@ -7,8 +7,10 @@ import { fetchLists, updateList, deleteList } from '~/store/list';
 import { useId } from '~/hooks/useId';
 import { CommonButton } from '~/components/common/CommonButton';
 import { FormField } from '~/components/common/FormField';
+import { toUTCString } from '~/utils/FormatDate';
+import { LimitInput } from '~/components/common/LimitInput';
 
-const EditList = () => {
+const EditList = ({ onClose }) => {
   const id = useId();
 
   const { listId } = useParams();
@@ -16,6 +18,7 @@ const EditList = () => {
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState('');
+  const [limit, setLimit] = useState('');
 
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,6 +30,7 @@ const EditList = () => {
   useEffect(() => {
     if (list) {
       setTitle(list.title);
+      setLimit(list.Limit || '');
     }
   }, [list]);
 
@@ -40,10 +44,12 @@ const EditList = () => {
 
       setIsSubmitting(true);
 
-      void dispatch(updateList({ id: listId, title }))
+      const limitUTC = toUTCString(limit);
+
+      void dispatch(updateList({ id: listId, title, limit: limitUTC }))
         .unwrap()
         .then(() => {
-          navigate(`/lists/${listId}`);
+          onClose();
         })
         .catch((err) => {
           setErrorMessage(err.message);
@@ -52,7 +58,7 @@ const EditList = () => {
           setIsSubmitting(false);
         });
     },
-    [title, listId]
+    [title, listId, limit, onClose, dispatch]
   );
 
   const handleDelete = useCallback(() => {
@@ -77,8 +83,8 @@ const EditList = () => {
 
   return (
     <main className="edit_list">
-      <BackButton />
-      <h2 className="edit_list__title">Edit List</h2>
+      <BackButton onClick={onClose} />
+      <h1 className="edit_list__title">Edit List</h1>
       <p className="edit_list__error">{errorMessage}</p>
       <form className="edit_list__form" onSubmit={onSubmit}>
         <FormField
@@ -96,9 +102,14 @@ const EditList = () => {
           />
         </FormField>
         <div className="common__form_actions">
-          <Link to="/" data-variant="secondary" className="common_button">
+          <CommonButton
+            type="button"
+            data-variant="secondary"
+            className="common_button"
+            onClick={onClose}
+          >
             Cancel
-          </Link>
+          </CommonButton>
           <div className="common__form_actions_spacer"></div>
           <CommonButton
             type="button"

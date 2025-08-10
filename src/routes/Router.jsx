@@ -1,6 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from 'react-router-dom';
+import { Layout } from '~/components/Layout';
 import { Sidebar } from '~/components/Sidebar';
 import Home from '~/pages/index.page';
 import NotFound from '~/pages/404';
@@ -16,32 +23,32 @@ export const Router = () => {
 
   return (
     <BrowserRouter>
-      <Sidebar />
-      <div className="main_content">
-        <Routes>
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          {auth ? (
-            <>
-              <Route path="/" element={<Home />} />
-              <Route path="/lists/:listId" element={<ListIndex />} />
-              <Route path="/list/new" element={<NewList />} />
-              <Route
-                path="/lists/:listId/tasks/:taskId"
-                element={<EditTask />}
-              />
-              <Route path="/lists/:listId/edit" element={<EditList />} />
-              <Route path="*" element={<NotFound />} />
-            </>
-          ) : (
-            <>
-              <Route path="/signin" element={<SignIn />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="*" element={<Navigate to="/signin" replace />} />
-            </>
-          )}
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        {auth ? (
+          <Route
+            element={
+              <Layout Sidebar={Sidebar}>
+                <Outlet />
+              </Layout>
+            }
+          >
+            <Route path="/" element={<Home />} />
+            <Route path="/lists/:listId" element={<ListIndex />} />
+            <Route path="/list/new" element={<NewList />} />
+            <Route path="/lists/:listId/tasks/:taskId" element={<EditTask />} />
+            <Route path="/lists/:listId/edit" element={<EditList />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        ) : (
+          <>
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="*" element={<Navigate to="/signin" replace />} />
+          </>
+        )}
+      </Routes>
     </BrowserRouter>
   );
 };
